@@ -3,4 +3,4 @@ __all__ = (
     "settings",
 )
 
-from .mount import Settings, settings
+from .settings_root import Settings, settings
