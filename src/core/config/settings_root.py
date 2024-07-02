@@ -1,8 +1,10 @@
 from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from src.core.config.cors import CorsSettings
-from src.core.config.run import RunSettings
+
+from core.config.database import DBSettings
+from core.config.cors import CorsSettings
+from core.config.run import RunSettings
 
 type ModeT = Literal["DEV", "PROD"]
 
@@ -14,8 +16,10 @@ class Settings(BaseSettings):
     run - host, port, app_title, log_level
     cors - origins, headers, methods
     """
+
     mode: ModeT
 
+    db: DBSettings
     run: RunSettings
     cors: CorsSettings
 
