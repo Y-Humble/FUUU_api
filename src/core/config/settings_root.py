@@ -12,12 +12,11 @@ type ModeT = Literal["DEV", "PROD"]
 class Settings(BaseSettings):
     """
     Application settings.
-    mode - DEV, PROD
     run - host, port, app_title, log_level
     cors - origins, headers, methods
+    db - driver, host, port, user, name, password,
+        echo, echo_pool, pool_size, max_overflow
     """
-
-    mode: ModeT
 
     db: DBSettings
     run: RunSettings
@@ -34,6 +33,7 @@ class Settings(BaseSettings):
 class SettingsFactory(BaseSettings):
     """
     Returns a config instance depending on the MODE variable in the .env
+    mode - DEV, PROD
     """
 
     mode: ModeT
