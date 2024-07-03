@@ -2,8 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.core.config import settings
-from src.core.lifespan import lifespan
+from core.config import settings
+from core.lifespan import lifespan
 
 
 def app() -> FastAPI:
@@ -26,10 +26,11 @@ def app() -> FastAPI:
     return app
 
 
-if __name__ == '__main__':
-    uvicorn.run(app="main:app",
-                host=settings.run.host,
-                port=settings.run.port,
-                reload=True,
-                factory=True,
-                )
+if __name__ == "__main__":
+    uvicorn.run(
+        app="main:app",
+        host=settings.run.host,
+        port=settings.run.port,
+        reload=True,
+        factory=True,
+    )
