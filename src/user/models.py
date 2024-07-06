@@ -1,5 +1,5 @@
 from enum import Enum
-from sqlalchemy import Enum as pgEnum, LargeBinary, VARCHAR, String, Boolean
+from sqlalchemy import Enum as pgEnum, LargeBinary, VARCHAR, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import expression
 
@@ -15,7 +15,7 @@ class Status(Enum):
 
 class User(IdUUIDMixin, Base):
     username: Mapped[str] = mapped_column(VARCHAR(32), unique=True)
-    email: Mapped[str] = mapped_column(String, unique=True, index=True)
+    email: Mapped[str] = mapped_column(VARCHAR, unique=True, index=True)
     hashed_password: Mapped[bytes] = mapped_column(LargeBinary)
     active: Mapped[bool] = mapped_column(
         Boolean, unique=False, default=True, server_default=expression.true()
