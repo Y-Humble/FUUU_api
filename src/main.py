@@ -33,4 +33,5 @@ if __name__ == "__main__":
         port=settings.run.port,
         reload=True,
         factory=True,
+        log_level=settings.run.log_level
     )

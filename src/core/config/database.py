@@ -15,7 +15,7 @@ class DBSettings(BaseModel):
     max_overflow: int
 
     @property
-    def url(self):
+    def url(self) -> URL:
         return URL.create(
             drivername=self.driver,
             username=self.user,

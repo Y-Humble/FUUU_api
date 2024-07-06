@@ -36,6 +36,7 @@ class DBSidekick:
         )
         self.session_factory: asm[AsyncSession] = asm(
             bind=self._engine,
+            future=True,
             autoflush=False,
             autocommit=False,
             expire_on_commit=False,
@@ -52,7 +53,7 @@ class DBSidekick:
 
 
 db_sidekick: DBSidekick = DBSidekick(
-    url=settings.db.url,
+    url=settings.db.url.render_as_string(False),
     echo=settings.db.echo,
     echo_pool=settings.db.echo_pool,
     pool_size=settings.db.pool_size,

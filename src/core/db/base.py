@@ -1,15 +1,15 @@
 from sqlalchemy import MetaData
 from sqlalchemy.orm import DeclarativeBase, declared_attr
 
-from core.config import settings
+from core.constants import Const
 from core.utils import camel_case_to_snake_case
 
 
 class Base(DeclarativeBase):
-    __abstract__: bool = True
+    __abstract__ = True
 
-    metadata: MetaData = MetaData(
-        naming_convention=settings.const.NAMING_CONVENTION,
+    metadata = MetaData(
+        naming_convention=Const.NAMING_CONVENTION,
     )
 
     @declared_attr.directive
