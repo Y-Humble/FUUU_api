@@ -5,7 +5,7 @@ from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.repositories import AbstractRepo
-from base import Base
+from core.db.base import Base
 
 
 type ModelT[T: Base] = Base
