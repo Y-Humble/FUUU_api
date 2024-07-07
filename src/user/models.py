@@ -3,8 +3,8 @@ from sqlalchemy import Enum as pgEnum, LargeBinary, VARCHAR, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import expression
 
-from core.db import Base
-from core.db.mixins import IdUUIDMixin
+from src.core.db import Base
+from src.core.db.mixins import IdUUIDMixin
 
 
 class Status(Enum):

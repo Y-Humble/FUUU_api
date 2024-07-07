@@ -1,6 +1,6 @@
 from typing import AsyncGenerator
 
-from sqlalchemy import Pool
+from sqlalchemy import Pool, URL
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
     async_sessionmaker as asm,
@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import (
     AsyncEngine,
 )
 
-from core.config import settings
+from src.core.config import settings
 
 
 class DBSidekick:
@@ -19,20 +19,13 @@ class DBSidekick:
 
     def __init__(
         self,
-        url: str,
+        url: URL | str,
         echo: bool,
         echo_pool: bool,
-        pool_size: int = 5,
-        max_overflow: int = 10,
-        poolclass: Pool | None = None,
+        engine_options: dict[str, int | Pool],
     ) -> None:
         self._engine: AsyncEngine = create_async_engine(
-            url=url,
-            echo=echo,
-            echo_pool=echo_pool,
-            pool_size=pool_size,
-            max_overflow=max_overflow,
-            poolclass=poolclass,
+            url=url, echo=echo, echo_pool=echo_pool, **engine_options
         )
         self.session_factory: asm[AsyncSession] = asm(
             bind=self._engine,
@@ -53,9 +46,8 @@ class DBSidekick:
 
 
 db_sidekick: DBSidekick = DBSidekick(
-    url=settings.db.url.render_as_string(False),
+    url=settings.db.url,
     echo=settings.db.echo,
     echo_pool=settings.db.echo_pool,
-    pool_size=settings.db.pool_size,
-    max_overflow=settings.db.max_overflow,
+    engine_options=settings.db.engine_options,
 )

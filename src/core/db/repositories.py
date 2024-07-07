@@ -4,8 +4,8 @@ from sqlalchemy import Insert, insert, Select, select, Delete, delete
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.repositories import AbstractRepo
-from core.db.base import Base
+from src.core.repositories import AbstractRepo
+from src.core.db.base import Base
 
 
 type ModelT[T: Base] = Base

@@ -1,4 +1,5 @@
 from pydantic import BaseModel, SecretStr
+from sqlalchemy import NullPool
 from sqlalchemy.engine.url import URL
 
 
@@ -24,3 +25,9 @@ class DBSettings(BaseModel):
             port=self.port,
             database=self.name,
         )
+
+    @property
+    def engine_options(self):
+        if self.name.startswith("test"):
+            return {"poolclass": NullPool}
+        return {"pool_size": self.pool_size, "max_overflow": self.max_overflow}

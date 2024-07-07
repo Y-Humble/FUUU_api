@@ -99,8 +99,10 @@ celerybeat.pid
 .env
 .env.prod
 .env.dev
+.env.test
 src/.env.dev
 src/.env.prod
+src/.env.test
 .venv
 env/
 venv/

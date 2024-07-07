@@ -1,10 +1,10 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from user.models import User
-from user.exceptions import UserExistException
-from user.repositories import UserRepo
-from user.schemas import UserCreate, UserCreateDB, UserSchema
-from user.utils import hash_password
+from src.user.models import User
+from src.user.exceptions import UserExistException
+from src.user.repositories import UserRepo
+from src.user.schemas import UserCreate, UserCreateDB, UserSchema
+from src.user.utils import hash_password
 
 
 class UserService:
@@ -16,7 +16,7 @@ class UserService:
         Add user to database
         :return: UserSchema(
             id: UUID,
-            username: Annotated[str, MaxLen(32)]
+            username: str MaxLen(32)
             email: EmailStr
             active: bool
             status: Status("admin", "enjoyer", "banned")
