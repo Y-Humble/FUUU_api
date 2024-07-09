@@ -4,8 +4,10 @@ import pytest
 from fastapi import FastAPI
 from httpx import ASGITransport, AsyncClient
 
-from src.core.db import Base, db_sidekick
-from src.main import app
+from builders.user import FakeUser
+from core.db.base import Base
+from core.db.sidekick import db_sidekick
+from core.setup import setup_app
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -19,8 +21,16 @@ async def create_tables() -> AsyncGenerator[None, None]:
 
 @pytest.fixture(scope="session")
 async def async_client() -> AsyncGenerator[AsyncClient, None]:
-    test_app: FastAPI = app()
+    test_app: FastAPI = setup_app()
     async with AsyncClient(
         transport=ASGITransport(app=test_app), base_url="http://test"
     ) as async_client:
         yield async_client
+
+
+@pytest.fixture(autouse=True)
+async def register_and_login(async_client: AsyncClient):
+    credentials = FakeUser().get_data()
+    await async_client.post("/user/register", json=credentials)
+    del credentials["email"]
+    await async_client.post("user/auth/login", data=credentials)
