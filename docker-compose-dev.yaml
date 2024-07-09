@@ -11,7 +11,10 @@ services:
       POSTGRES_PASSWORD: ${DB__PASSWORD}
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - type: volume
+        source: db-data
+        target: /var/lib/postgresql/data
 
 volumes:
   db-data:
+    name: ${VOLUMES_SOURCE}
