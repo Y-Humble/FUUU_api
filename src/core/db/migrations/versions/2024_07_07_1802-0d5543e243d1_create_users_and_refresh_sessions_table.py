@@ -1,8 +1,8 @@
-"""create users table
+"""create users and refresh_sessions table
 
-Revision ID: b2e0b92c3c2a
+Revision ID: 0d5543e243d1
 Revises: 
-Create Date: 2024-07-06 14:58:08.733237
+Create Date: 2024-07-07 18:02:44.869303
 
 """
 
@@ -12,7 +12,7 @@ from alembic import op
 import sqlalchemy as sa
 
 
-revision: str = "b2e0b92c3c2a"
+revision: str = "0d5543e243d1"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -45,9 +45,43 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id", name=op.f("pk_users")),
         sa.UniqueConstraint("username", name=op.f("uq_users_username")),
     )
+
     op.create_index(op.f("ix_users_email"), "users", ["email"], unique=True)
+
+    op.create_table(
+        "refresh_session_models",
+        sa.Column("id", sa.BigInteger(), nullable=False),
+        sa.Column("refresh_token", sa.VARCHAR(), nullable=False),
+        sa.Column("expires_in", sa.Integer(), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.TIMESTAMP(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
+        sa.Column("user_id", sa.UUID(), nullable=False),
+        sa.ForeignKeyConstraint(
+            ["user_id"],
+            ["users.id"],
+            name=op.f("fk_refresh_session_models_user_id_users"),
+            ondelete="CASCADE",
+        ),
+        sa.PrimaryKeyConstraint("id", name=op.f("pk_refresh_session_models")),
+    )
+
+    op.create_index(
+        op.f("ix_refresh_session_models_refresh_token"),
+        "refresh_session_models",
+        ["refresh_token"],
+        unique=False,
+    )
 
 
 def downgrade() -> None:
+    op.drop_index(
+        op.f("ix_refresh_session_models_refresh_token"),
+        table_name="refresh_session_models",
+    )
+    op.drop_table("refresh_session_models")
     op.drop_index(op.f("ix_users_email"), table_name="users")
     op.drop_table("users")
