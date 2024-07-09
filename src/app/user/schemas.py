@@ -4,7 +4,7 @@ from uuid import UUID
 from annotated_types import MaxLen
 from pydantic import BaseModel, ConfigDict, EmailStr
 
-from src.user.models import Status
+from app.user.models import Status
 
 
 class UserBase(BaseModel):
