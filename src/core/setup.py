@@ -2,9 +2,9 @@ from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.core.config import settings
-from src.core.lifespan import lifespan
-from src.user import user_router
+from core.config import settings
+from core.lifespan import lifespan
+from app.user import user_router
 
 
 def setup_app() -> FastAPI:
