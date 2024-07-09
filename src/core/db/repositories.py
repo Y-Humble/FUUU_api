@@ -4,8 +4,8 @@ from sqlalchemy import Insert, insert, Select, select, Delete, delete
 from sqlalchemy.engine import Result
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.repositories import AbstractRepo
-from src.core.db.base import Base
+from core.repositories import AbstractRepo
+from core.db.base import Base
 
 
 type ModelT[T: Base] = Base
@@ -40,9 +40,9 @@ class SQlAlchemyRepo[ModelT](AbstractRepo):
 
     @classmethod
     async def get_one_or_none(
-        cls, session: AsyncSession, **filters
+        cls, session: AsyncSession, **filter_by
     ) -> ModelT | None:
-        stmt: Select = select(cls._model).filter_by(**filters)
+        stmt: Select = select(cls._model).filter_by(**filter_by)
         result: Result = await session.execute(stmt)
         row: ModelT = result.scalars().one_or_none()
         return row
