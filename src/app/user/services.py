@@ -53,8 +53,7 @@ class UserService:
         cls,
         session: AsyncSession,
         password: str,
-        username: str | None = None,
-        email: str | None = None,
+        username_or_email: str | None = None,
     ) -> UserSchema:
         """
         Get User from database, check password, check that user is active
@@ -66,15 +65,18 @@ class UserService:
             status: Status("admin", "enjoyer", "banned")
         )
         """
-        filters: dict[str, str] = {}
-        if username is not None:
-            filters.update({"username": username})
-        elif email is not None:
-            filters.update({"email": email})
-        else:
+        if username_or_email is None:
             raise EmptyCredentialsException
 
-        if user := await UserRepo.get_one_or_none(session, **filters):
+        if (
+            user := await UserRepo.get_one_or_none(
+                session, username=username_or_email
+            )
+        ) or (
+            user := await UserRepo.get_one_or_none(
+                session, email=username_or_email
+            )
+        ):
             if is_valid_password(password, user.hashed_password):
                 if user.active:
                     return UserSchema.model_validate(user)
