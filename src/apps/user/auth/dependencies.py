@@ -2,9 +2,9 @@ from fastapi import Depends
 from jwt.exceptions import InvalidTokenError
 
 from core.config import settings
-from app.user.auth.exceptions import InvalidTokenException
-from app.user.auth.services import AuthService
-from app.user.auth.utils import OAuth2PasswordBearerWithCookie as CookieOAuth2
+from apps.user.auth.exceptions import InvalidTokenException
+from apps.user.auth.services import AuthService
+from apps.user.auth.utils import OAuth2PasswordBearerWithCookie as CookieOAuth2
 
 oauth2_access_scheme: CookieOAuth2 = CookieOAuth2(
     tokenUrl=settings.auth.token_url,

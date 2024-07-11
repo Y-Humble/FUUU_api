@@ -1,6 +1,6 @@
 from httpx import AsyncClient, Cookies, Response
 
-from app.user.auth.messages import AuthResponseMessage
+from apps.user.auth.messages import AuthResponseMessage
 
 
 async def test_auth_cookies(async_client: AsyncClient) -> None:

@@ -1,5 +1,5 @@
 from core.db import SQlAlchemyRepo
-from app.user.models import User
+from apps.user.models import User
 
 
 class UserRepo[ModelT: User](SQlAlchemyRepo):

@@ -2,22 +2,22 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.user.models import User
-from app.user.exceptions import (
+from apps.user.models import User
+from apps.user.exceptions import (
     EmptyCredentialsException,
     InvalidCredentialsException,
     UserExistException,
     UserNotFoundException,
 )
-from app.user.repositories import UserRepo
-from app.user.schemas import (
+from apps.user.repositories import UserRepo
+from apps.user.schemas import (
     UserCreate,
     UserCreateDB,
     UserSchema,
     UserUpdate,
     UserUpdateDB,
 )
-from app.user.utils import hash_password, is_valid_password
+from apps.user.utils import hash_password, is_valid_password
 
 
 class UserService:

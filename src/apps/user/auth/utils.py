@@ -2,7 +2,7 @@ from fastapi import Request
 from fastapi.security import OAuth2
 from fastapi.openapi.models import OAuthFlows
 
-from app.user.auth.exceptions import UnauthorizedUserException
+from apps.user.auth.exceptions import UnauthorizedUserException
 
 
 class OAuth2PasswordBearerWithCookie(OAuth2):

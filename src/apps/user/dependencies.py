@@ -4,16 +4,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.config import settings
 from core.db import db_sidekick
-from app.user import Status
-from app.user.auth.dependencies import (
+from apps.user import Status
+from apps.user.auth.dependencies import (
     get_access_token_payload,
     get_refresh_token_payload,
 )
-from app.user.auth.exceptions import InvalidTokenException
-from app.user.exceptions import AccessIsDeniedException, InactiveUserException
-from app.user.repositories import UserRepo
-from app.user.schemas import UserSchema
-from app.user.utils import validate_token_type
+from apps.user.auth.exceptions import InvalidTokenException
+from apps.user.exceptions import AccessIsDeniedException, InactiveUserException
+from apps.user.repositories import UserRepo
+from apps.user.schemas import UserSchema
+from apps.user.utils import validate_token_type
 
 
 async def get_user_by_sub(session: AsyncSession, payload: dict) -> UserSchema:

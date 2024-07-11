@@ -5,16 +5,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.config import settings
 from core.db import db_sidekick
-from app.user.auth.messages import AuthResponseMessage
-from app.user.auth.schemas import TokenInfo
-from app.user.auth.services import AuthService
-from app.user.dependencies import (
+from apps.user.auth.messages import AuthResponseMessage
+from apps.user.auth.schemas import TokenInfo
+from apps.user.auth.services import AuthService
+from apps.user.dependencies import (
     get_current_active_user,
     get_current_auth_user_for_refresh,
 )
-from app.user.exceptions import InvalidCredentialsException
-from app.user.schemas import UserSchema
-from app.user.services import UserService
+from apps.user.exceptions import InvalidCredentialsException
+from apps.user.schemas import UserSchema
+from apps.user.services import UserService
 
 router: APIRouter = APIRouter(prefix="/auth", tags=["Auth"])
 

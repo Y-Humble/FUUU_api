@@ -6,11 +6,11 @@ from uuid import UUID
 
 from core.config import settings
 from core.constants import Const
-from app.user.auth.exceptions import InvalidTokenException
-from app.user.auth.repositories import RefreshSessionRepo
-from app.user.auth.schemas import TokenInfo
-from app.user.repositories import UserRepo
-from app.user.schemas import UserSchema
+from apps.user.auth.exceptions import InvalidTokenException
+from apps.user.auth.repositories import RefreshSessionRepo
+from apps.user.auth.schemas import TokenInfo
+from apps.user.repositories import UserRepo
+from apps.user.schemas import UserSchema
 
 
 class AuthService:

@@ -2,9 +2,9 @@ from datetime import datetime
 
 from httpx import AsyncClient, Response
 
-from app.user.messages import UserResponseMessage
+from apps.user.messages import UserResponseMessage
 from tests.builders.user import FakeUser
-from app.user import Status
+from apps.user import Status
 
 
 async def test_register_user(async_client: AsyncClient) -> None:

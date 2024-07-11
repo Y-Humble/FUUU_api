@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from core.config import settings
 from core.lifespan import lifespan
-from app.user import user_router
+from apps.user import user_router
 
 
 def setup_app() -> FastAPI:

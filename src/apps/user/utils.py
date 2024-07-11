@@ -1,6 +1,6 @@
 import bcrypt
 
-from app.user.auth.exceptions import InvalidTokenTypeException
+from apps.user.auth.exceptions import InvalidTokenTypeException
 from core.config import settings
 
 
