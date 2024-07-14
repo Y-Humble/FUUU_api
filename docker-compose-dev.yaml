@@ -15,6 +15,18 @@ services:
         source: db-data
         target: /var/lib/postgresql/data
 
+  redis:
+    image: redis:7
+    restart: always
+    container_name: redis
+    command: --port ${REDIS__PORT}
+    expose:
+      - ${REDIS__PORT}
+    ports:
+      - ${REDIS__PORT}:${REDIS__PORT}
+    env_file:
+      - src/environs/.env.dev
+
 volumes:
   db-data:
     name: ${VOLUMES_SOURCE}
