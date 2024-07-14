@@ -10,6 +10,7 @@ from core.db.mixins import IdUUIDMixin
 
 if TYPE_CHECKING:
     from apps.user.templates.models import UserMemeTemplate
+    from apps.user.telegram.models import TelegramUser
 
 
 class Status(Enum):
@@ -38,3 +39,4 @@ class User(IdUUIDMixin, Base):
     templates: Mapped[list["UserMemeTemplate"]] = relationship(
         back_populates="user",
     )
+    tg: Mapped["TelegramUser"] = relationship(back_populates="user")
