@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from core.config import settings
 from core.lifespan import lifespan
 from apps.user import user_router
+from apps.meme import meme_router
 
 
 def setup_app() -> FastAPI:
@@ -25,5 +26,6 @@ def setup_app() -> FastAPI:
     )
 
     app.include_router(router=user_router)
+    app.include_router(router=meme_router)
 
     return app
