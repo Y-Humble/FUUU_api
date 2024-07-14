@@ -108,6 +108,13 @@ venv.bak/
 !src/environs/certs
 src/environs/certs/*
 
+#templates
+src/MemeTemplates/*
+src/MemeTemplates/users/*
+!src/MemeTemplates/users/
+
+
+
 # Spyder project settings
 .spyderproject
 .spyproject
