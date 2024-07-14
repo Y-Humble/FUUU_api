@@ -3,7 +3,7 @@ from datetime import datetime
 from httpx import AsyncClient, Response
 
 from apps.user.messages import UserResponseMessage
-from tests.builders.user import FakeUser
+from tests.builders import FakeUser
 from apps.user import Status
 
 
