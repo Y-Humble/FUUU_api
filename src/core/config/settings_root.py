@@ -2,6 +2,7 @@ from typing import Literal
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from core.config.auth import AuthSettings
+from core.config.redis import RedisSettings
 from core.constants import Const
 from core.config.database import DBSettings
 from core.config.cors import CorsSettings
@@ -16,14 +17,16 @@ class Settings(BaseSettings):
         auth - algorithm, token_type_field, token_url, access_token_type,
         refresh_token_type, access_token_expire_minutes,
         refresh_token_expire_minutes
-        run - host, port, app_title, log_level
+        run - host, port, app_title, log_level, url
         cors - origins, headers, methods
+        redis - host, port
         db - driver, host, port, user, name, password,
             echo, echo_pool, pool_size, max_overflow
     """
 
     auth: AuthSettings
     db: DBSettings
+    redis: RedisSettings
     run: RunSettings
     cors: CorsSettings
 
