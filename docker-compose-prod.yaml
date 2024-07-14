@@ -17,6 +17,18 @@ services:
         source: db-data
         target: /var/lib/postgresql/data
 
+  cache:
+    image: redis:7
+    restart: always
+    container_name: cache
+    command: --port ${REDIS__PORT}
+    expose:
+      - ${REDIS__PORT}
+    ports:
+      - ${REDIS__PORT}:${REDIS__PORT}
+    env_file:
+      - src/environs/.env.prod
+
   app:
     build:
       context: .
@@ -28,6 +40,7 @@ services:
       - ${RUN__PORT}:${RUN__PORT}
     depends_on:
       - database
+      - cache
 
 volumes:
   db-data:
