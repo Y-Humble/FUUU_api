@@ -1,8 +1,8 @@
-"""create users and refresh_sessions table
+"""create all tables
 
-Revision ID: 0d5543e243d1
+Revision ID: b2cd474ff262
 Revises: 
-Create Date: 2024-07-07 18:02:44.869303
+Create Date: 2024-07-14 14:02:46.623266
 
 """
 
@@ -12,13 +12,23 @@ from alembic import op
 import sqlalchemy as sa
 
 
-revision: str = "0d5543e243d1"
+revision: str = "b2cd474ff262"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
+    op.create_table(
+        "meme_templates",
+        sa.PrimaryKeyConstraint("id", name=op.f("pk_meme_templates")),
+        sa.Column("title", sa.VARCHAR(length=100), nullable=False),
+        sa.Column("category", sa.VARCHAR(length=100), nullable=False),
+        sa.Column("path", sa.VARCHAR(), nullable=False),
+        sa.Column("id", sa.BigInteger(), nullable=False),
+        sa.UniqueConstraint("title", name=op.f("uq_meme_templates_title")),
+    )
+
     op.create_table(
         "users",
         sa.Column(
@@ -45,7 +55,6 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id", name=op.f("pk_users")),
         sa.UniqueConstraint("username", name=op.f("uq_users_username")),
     )
-
     op.create_index(op.f("ix_users_email"), "users", ["email"], unique=True)
 
     op.create_table(
@@ -76,8 +85,25 @@ def upgrade() -> None:
         unique=False,
     )
 
+    op.create_table(
+        "user_meme_templates",
+        sa.Column("id", sa.BigInteger(), nullable=False),
+        sa.Column("title", sa.VARCHAR(length=100), nullable=False),
+        sa.Column("category", sa.VARCHAR(length=100), nullable=False),
+        sa.Column("path", sa.String(), nullable=False),
+        sa.Column("user_id", sa.UUID(), nullable=False),
+        sa.ForeignKeyConstraint(
+            ["user_id"],
+            ["users.id"],
+            name=op.f("fk_user_meme_templates_user_id_users"),
+            ondelete="CASCADE",
+        ),
+        sa.PrimaryKeyConstraint("id", name=op.f("pk_user_meme_templates")),
+    )
+
 
 def downgrade() -> None:
+    op.drop_table("user_meme_templates")
     op.drop_index(
         op.f("ix_refresh_session_models_refresh_token"),
         table_name="refresh_session_models",
@@ -85,3 +111,4 @@ def downgrade() -> None:
     op.drop_table("refresh_session_models")
     op.drop_index(op.f("ix_users_email"), table_name="users")
     op.drop_table("users")
+    op.drop_table("meme_templates")
