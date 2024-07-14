@@ -19,3 +19,10 @@ class Const:
         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
         "pk": "pk_%(table_name)s",
     }
+    FONTS_DIR: Path = BASE_DIR / "Fonts"
+    TEMPLATES_DIR: Path = BASE_DIR / "MemeTemplates"
+    USER_TEMPLATES_DIR: Path = TEMPLATES_DIR / "users"
+    TEST_TEMPLATES_DIR: Path = BASE_DIR / "tests" / "Temp"
+    TEST_USER_TEMPLATES_DIR: Path = TEST_TEMPLATES_DIR / "users"
+    TEST_INTPUT_PATH: Path = BASE_DIR / "tests" / "input"
+    DEFAULT_SIZE: tuple[int, int] = 600, 600
