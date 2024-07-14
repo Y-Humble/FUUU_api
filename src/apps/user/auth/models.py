@@ -8,7 +8,7 @@ from core.db import Base
 from core.db.mixins import IdIntegerMixin
 
 
-class RefreshSessionModel(IdIntegerMixin, Base):
+class RefreshSession(IdIntegerMixin, Base):
     refresh_token: Mapped[str] = mapped_column(VARCHAR, index=True)
     expires_in: Mapped[int]
     created_at: Mapped[datetime] = mapped_column(
