@@ -10,7 +10,7 @@ from alembic import context
 from core.db import Base
 from core.config import settings
 from apps.meme import MemeTemplate
-from apps.user import User, RefreshSessionModel, UserMemeTemplate
+from apps.user import User, RefreshSession, UserMemeTemplate, TelegramUser
 
 
 config = context.config
