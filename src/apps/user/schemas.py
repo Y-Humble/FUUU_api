@@ -1,6 +1,5 @@
 from typing import Annotated
 from uuid import UUID
-
 from annotated_types import MaxLen
 from pydantic import BaseModel, ConfigDict, EmailStr
 

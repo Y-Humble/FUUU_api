@@ -11,9 +11,12 @@ from apps.user.messages import UserResponseMessage
 from apps.user.schemas import UserCreate, UserResponse, UserSchema, UserUpdate
 from apps.user.services import UserService
 from apps.user.auth import auth_router
+from apps.user.templates import user_template_router
+
 
 router: APIRouter = APIRouter(prefix="/user", tags=["User"])
 router.include_router(auth_router)
+router.include_router(user_template_router)
 
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
